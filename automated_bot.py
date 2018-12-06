@@ -8,6 +8,10 @@ import requests
 
 
 class AutomatedBot:
+    """
+    Automated bot class. Allows to create new user in the system, create
+    new posts and make likes according to bot settings, received from bot config.
+    """
     def __init__(self, user_data: list, users_amount, max_posts, max_likes,
                  host="localhost:8000", login="admin", password="admin",
                  email="admin@admin.com"):
@@ -28,6 +32,12 @@ class AutomatedBot:
                           in self.user_data if data["email"] == email]), "")
 
     def get_token(self, email, password):
+        '''
+        Get JWT token from api using user credentials
+        :param str email: user email
+        :param str password: user password
+        :return: return JWT token as secord param
+        '''
         token = None
         _ = None
         response = requests.post("{}/api/token/obtain/".format(self.host),
@@ -39,15 +49,15 @@ class AutomatedBot:
             token = data['token']
         return _, token
 
-    def refresh_token(self, jwt_token):
-        response = requests.post("{}/api/token/refresh/".format(self.host),
-                                 {"token": jwt_token})
-
-        if response.status_code == 200:
-            data = response.json()
-            return data['token']
-
     def register_user(self, login="", password="", email=""):
+        '''
+        Register non existed user in database using api and login
+        after succsessful registration
+        :param str login: username of future user
+        :param str password: password of future user
+        :param str email: email of future user
+        :return: response and new JWT token
+        '''
         token = None
         data = {
             "username": login,
@@ -60,6 +70,12 @@ class AutomatedBot:
         return response, token
 
     def authenticate(self, email, username, password):
+        '''
+        :param str email: email of user
+        :param username: username of  user
+        :param str password: password of user
+        :return: response and JWT token if authenticate or None
+        '''
         _, token_to_set = self.get_token(email, password)
         if token_to_set:
             return _, token_to_set
@@ -71,6 +87,10 @@ class AutomatedBot:
         return None, None
 
     def create_posts(self):
+        '''
+        Register new users in the system. Create posts for new users. Amount of
+        users and posts delares by bot instance settings.
+        '''
         print("------------------Start creating new posts--------------------")
         for user in self.user_data[:self.users_amount]:
             self.current_jwt_token = None
@@ -110,6 +130,10 @@ class AutomatedBot:
                 print('Unable to create user {}'.format(email))
 
     def do_like_activity(self):
+        '''
+        Make new likes for created posts. Method chose post to like according
+        to user activity and max likes value, declared in bot settings.
+        '''
         print("------------------Start creating new likes--------------------")
         user_activity_url = "{}/api/user/get_users_activity/?max_likes={}".format(self.host,
                                                                                self.max_likes)
@@ -139,6 +163,11 @@ class AutomatedBot:
             print('Unable to get users activity')
 
     def run(self):
+        '''
+        Main method of the class. Needed to start bot activity. Register new
+        new user for bot in the system, if needed. Initiate data creation
+        process.
+        '''
         print(STRART_MSG.format(self.host, self.users_amount, self.max_posts,
                                 self.max_likes))
 
