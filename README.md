@@ -24,6 +24,8 @@ use​ ​emailhunter.co​ ​for​ ​verifying​ ​email​ ​existence�
 use​​ ​​clearbit.com/enrichment​​ ​for​ ​getting​ ​additional​ ​data​ ​for​ ​the​ ​user​ ​on​ ​signup
 use​ ​JWT​ ​for​ ​user​ ​authentication
 use​ ​Django​ ​with​ ​any​ ​other​ ​apps,​ ​databases​ ​etc.
+
+
 Automated​ ​bot
 
 This​ ​bot​ ​should​ ​read​ ​rules​ ​from​ ​a​ ​config​ ​file​ ​(in​ ​any​ ​format​ ​chosen​ ​by​ ​the​ ​candidate),​ ​but​ ​should​ ​have following​ ​fields​ ​(all​ ​integers,​ ​candidate​ ​can​ ​rename​ ​as​ ​they​ ​see​ ​fit):
