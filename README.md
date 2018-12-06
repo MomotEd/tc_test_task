@@ -54,5 +54,5 @@ Usage:
  - run "pip install -r requierments.txt" to install dependencies
  - run "python manage.py migrate"
  - run "python manage.py runserver"
- To start pot use "python automated_bot.py"
+ To start bot use "python automated_bot.py"
  
