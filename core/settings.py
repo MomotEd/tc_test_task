@@ -95,7 +95,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 )
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
